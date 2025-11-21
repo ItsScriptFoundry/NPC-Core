@@ -1,0 +1,27 @@
+{
+  "name": "NPC Core",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+        "$path": "src/ReplicatedStorage",
+        "Packages": {
+          "$path": "Packages"
+        }
+    },
+
+    "ServerScriptService": {
+      "$path": "src/ServerScriptService"
+    },
+
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterCharacterScripts": {
+        "$path": "src/StarterCharacterScripts"
+      },
+      "StarterPlayerScripts": {
+        "$path": "src/StarterPlayerScripts" 
+      }
+    }
+  }
+}
