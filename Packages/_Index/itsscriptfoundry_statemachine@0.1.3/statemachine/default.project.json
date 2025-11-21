@@ -1,0 +1,6 @@
+{
+  "name": "statemachine",
+  "tree": {
+    "$path": "src/StateMachine"
+  }
+}

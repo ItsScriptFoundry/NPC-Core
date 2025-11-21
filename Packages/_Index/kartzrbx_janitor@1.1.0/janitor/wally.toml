@@ -1,0 +1,11 @@
+[package]
+name = "kartzrbx/janitor"
+description = "Janitor simple model"
+liscence = "MIT"
+authors = ["KartzRbx"]
+version = "1.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+
+[dependencies]
