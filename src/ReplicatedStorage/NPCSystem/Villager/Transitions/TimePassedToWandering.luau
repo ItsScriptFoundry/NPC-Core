@@ -7,7 +7,6 @@ return function()
 	TimePassed.Name = "IdleToWander"
 
 	function TimePassed:ShouldTrigger(State, Data)
-		-- Must have been idle for at least 3 seconds
 		if (Data.IdleTime or 0) < 3 then
 			return false
 		end
