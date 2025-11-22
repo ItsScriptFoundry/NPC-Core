@@ -1,16 +1,22 @@
 --!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local StateMachine = require(ReplicatedStorage.Packages.StateMachine)
+local PromptInteractor = require(ReplicatedStorage.Shared.Modules.Utility.PromptInteractor)
 
 return function()
 	local Idle = StateMachine.State.new("Idle")
 	Idle.Transitions = {
 		require(script.Parent.Parent.Transitions.TimePassedToWandering),
+		require(script.Parent.Parent.Transitions.PlayerInteraction),
 	}
+
+	local Connection = nil
 
 	function Idle:OnEnter(Data)
 		print(`[{Data.NPC.Name}] Entered Idle`)
 		Data.IdleTime = 0 -- Reset timer
+
+		Connection = PromptInteractor.Setup(Data)
 	end
 
 	function Idle:OnUpdate(Data, Dt)
@@ -19,6 +25,7 @@ return function()
 
 	function Idle:OnLeave(Data)
 		print(`[{Data.NPC.Name}] Left Idle after {math.floor(Data.IdleTime)}s`)
+		PromptInteractor.Cleanup(Connection)
 	end
 
 	return Idle

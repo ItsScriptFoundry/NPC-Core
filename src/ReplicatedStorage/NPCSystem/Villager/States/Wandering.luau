@@ -1,6 +1,7 @@
 --!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local StateMachine = require(ReplicatedStorage.Packages.StateMachine)
+local PromptInteractor = require(ReplicatedStorage.Shared.Modules.Utility.PromptInteractor)
 
 local Waypoints = workspace.Waypoints
 
@@ -8,7 +9,10 @@ return function()
 	local Wandering = StateMachine.State.new("Wandering")
 	Wandering.Transitions = {
 		require(script.Parent.Parent.Transitions.TimePassedToIdle),
+		require(script.Parent.Parent.Transitions.PlayerInteraction),
 	}
+
+	local Connection = nil
 
 	-- Use state-specific data, not blocking loops
 	function Wandering:OnEnter(Data)
@@ -18,6 +22,8 @@ return function()
 		end
 
 		print(`[{Data.NPC.Name}] Started wandering`)
+
+		Connection = PromptInteractor.Setup(Data)
 
 		-- Store walk data in Data (persisted across updates)
 		Data.WalkData = {
@@ -50,6 +56,8 @@ return function()
 			Data.WalkData.Humanoid:MoveTo(Data.WalkData.Humanoid.RootPart.Position)
 		end
 		Data.WalkData = nil -- Cleanup
+
+		PromptInteractor.Cleanup(Connection)
 	end
 
 	-- Helper: Pick and move to a random waypoint
